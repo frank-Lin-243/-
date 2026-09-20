@@ -47,24 +47,19 @@ const features = [
   },
 ];
 
-// 3. 學員好評資料
-const testimonials = [
-  {
-    stars: "★★★★★",
-    quote: "教練非常細心，三個月就看到明顯的體態變化，訓練過程也很有尊榮感！",
-    author: "— 學員 陳小姐",
-  },
-  {
-    stars: "★★★★★",
-    quote: "課程規劃很專業，完全針對我的需求調整，推薦給想認真訓練的朋友。",
-    author: "— 學員 林先生",
-  },
-  {
-    stars: "★★★★★",
-    quote: "環境舒適、教練用心，每次上課都很期待，是我這輩子最值得的投資。",
-    author: "— 學員 王小姐",
-  },
-];
+// 3. Supabase 連線設定
+// 這裡的網址跟金鑰是「公開金鑰」，只能讀取/新增資料，不能刪除或修改別人的資料，可以放心寫在前端
+const SUPABASE_URL = "https://vuwlmmsstzhqbiglityg.supabase.co";
+const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1d2xtbXNzdHpocWJpZ2xpdHlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk4NzIyNTYsImV4cCI6MjEwNTQ0ODI1Nn0.V3GWt75WLEkvmauDb-K0LsmevSYM3JdeL5UVUzxe7V8";
+
+// 用 Supabase 官方函式庫建立連線物件，之後讀寫資料庫都靠它
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// 把數字評分（例如 5）轉成星星文字（例如 ★★★★★），方便顯示
+function starsToText(starCount) {
+  return "★".repeat(starCount) + "☆".repeat(5 - starCount);
+}
 
 // 4. 動態產生課程卡片
 // 這個函式會把上面 courses 陣列裡的每一筆資料，變成一張課程卡片放進網頁裡
@@ -103,21 +98,91 @@ function renderFeatures() {
   });
 }
 
-// 6. 動態產生學員好評卡片
-function renderTestimonials() {
+// 6. 把一筆學員回饋資料，變成一張卡片並加到畫面最上方（最新的排最前面）
+function addTestimonialCard(item) {
   const testimonialList = document.getElementById("testimonial-list");
 
-  testimonials.forEach(function (item) {
-    const card = document.createElement("div");
-    card.className = "testimonial-card";
+  const card = document.createElement("div");
+  card.className = "testimonial-card";
 
-    card.innerHTML = `
-      <div class="stars">${item.stars}</div>
-      <p class="quote">「${item.quote}」</p>
-      <div class="author">${item.author}</div>
-    `;
+  card.innerHTML = `
+    <div class="stars">${starsToText(item.stars)}</div>
+    <p class="quote">「${item.quote}」</p>
+    <div class="author">— 學員 ${item.name}</div>
+  `;
 
-    testimonialList.appendChild(card);
+  testimonialList.prepend(card); // prepend 讓最新的評論顯示在最上面
+}
+
+// 7. 從 Supabase 資料庫讀取所有學員回饋，並顯示在畫面上
+async function loadTestimonials() {
+  const testimonialList = document.getElementById("testimonial-list");
+
+  // 依照建立時間新到舊排序
+  const { data, error } = await supabaseClient
+    .from("testimonials")
+    .select("name, quote, stars")
+    .order("created_at", { ascending: false });
+
+  // 清空原本的「載入中...」文字
+  testimonialList.innerHTML = "";
+
+  if (error) {
+    console.error("讀取學員回饋失敗：", error);
+    testimonialList.innerHTML = `<p class="loading-text">好評載入失敗，請稍後再試。</p>`;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    testimonialList.innerHTML = `<p class="loading-text">目前還沒有學員回饋，快來當第一位吧！</p>`;
+    return;
+  }
+
+  data.forEach(function (item) {
+    addTestimonialCard(item);
+  });
+}
+
+// 8. 處理學員回饋表單送出：把資料寫進 Supabase，成功後馬上顯示在畫面上
+function setupTestimonialForm() {
+  const form = document.getElementById("testimonial-form");
+  const result = document.getElementById("testimonial-result");
+
+  form.addEventListener("submit", async function (event) {
+    // 阻止表單預設的送出行為（避免整頁重新整理）
+    event.preventDefault();
+
+    const name = document.getElementById("t-name").value.trim();
+    const stars = parseInt(document.getElementById("t-stars").value, 10);
+    const quote = document.getElementById("t-quote").value.trim();
+
+    // 先把按鈕暫時關閉，避免使用者重複點擊送出
+    const submitButton = form.querySelector("button");
+    submitButton.disabled = true;
+    submitButton.textContent = "送出中...";
+
+    const newTestimonial = { name: name, quote: quote, stars: stars };
+
+    // 把資料寫進 Supabase 的 testimonials 資料表
+    const { error } = await supabaseClient.from("testimonials").insert(newTestimonial);
+
+    submitButton.disabled = false;
+    submitButton.textContent = "送出回饋";
+
+    if (error) {
+      console.error("新增學員回饋失敗：", error);
+      result.textContent = "送出失敗，請稍後再試一次。";
+      result.style.color = "#ff6b6b";
+      return;
+    }
+
+    // 成功後，直接把這筆新回饋加到畫面最上面，不用重新整理頁面
+    addTestimonialCard(newTestimonial);
+
+    result.textContent = `謝謝 ${name} 的分享，您的回饋已經送出！`;
+    result.style.color = ""; // 恢復預設的成功顏色
+
+    form.reset();
   });
 }
 
@@ -163,7 +228,8 @@ function setupContactForm() {
 document.addEventListener("DOMContentLoaded", function () {
   renderCourses();
   renderFeatures();
-  renderTestimonials();
+  loadTestimonials(); // 從 Supabase 讀取學員回饋
   animateStats();
   setupContactForm();
+  setupTestimonialForm(); // 設定學員回饋表單的送出邏輯
 });
