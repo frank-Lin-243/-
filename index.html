@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>健身教學網站</title>
+  <!-- 引入外部樣式表 -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 頂部導覽列 -->
+  <header class="navbar">
+    <div class="logo">✨ FitPro 尊爵健身教室</div>
+    <nav>
+      <a href="#about">教練介紹</a>
+      <a href="#features">為什麼選我們</a>
+      <a href="#courses">課程項目</a>
+      <a href="#testimonials">學員好評</a>
+      <a href="#contact">聯絡方式</a>
+    </nav>
+  </header>
+
+  <!-- 主視覺區塊 -->
+  <section class="hero">
+    <div class="hero-badge">頂級私人教練 · 尊榮服務</div>
+    <h1>打造更閃耀、更強壯的自己</h1>
+    <p>專業教練一對一帶領，客製化奢華訓練體驗，陪你一步步蛻變成最好的版本</p>
+    <a href="#contact" class="btn">立即預約諮詢</a>
+  </section>
+
+  <!-- 數字統計區塊 -->
+  <section class="stats">
+    <div class="stat-item">
+      <span class="stat-number" data-target="8">0</span>
+      <span class="stat-label">年教學經驗</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="500">0</span>
+      <span class="stat-label">位學員蛻變</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="12">0</span>
+      <span class="stat-label">項專業證照</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="98">0</span>
+      <span class="stat-label">% 學員滿意度</span>
+    </div>
+  </section>
+
+  <!-- 教練介紹區塊 -->
+  <section id="about" class="section">
+    <h2>教練介紹</h2>
+    <div class="about-content">
+      <div class="about-photo">
+        <img src="coach.jpg" alt="教練照片" />
+      </div>
+      <div class="about-text">
+        <p>
+          大家好，我是 FitPro 的專任教練。擁有多年重量訓練與體能訓練指導經驗，
+          擅長依照學員的身體狀況與目標，規劃安全且有效的訓練菜單。
+        </p>
+        <p>
+          無論你是健身新手，還是想突破訓練瓶頸，我都能陪你一起找到最適合的方法，
+          養成規律運動的好習慣，享受屬於自己的尊爵訓練時光。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 為什麼選我們區塊 -->
+  <section id="features" class="section alt-bg">
+    <h2>為什麼選我們</h2>
+    <!-- 特色卡片由 script.js 動態產生 -->
+    <div id="feature-list" class="feature-list"></div>
+  </section>
+
+  <!-- 課程項目區塊 -->
+  <section id="courses" class="section">
+    <h2>課程項目</h2>
+    <!-- 課程卡片會由 script.js 動態產生，這裡先放一個容器 -->
+    <div id="course-list" class="course-list"></div>
+  </section>
+
+  <!-- 學員好評區塊 -->
+  <section id="testimonials" class="section alt-bg">
+    <h2>學員好評</h2>
+    <!-- 好評卡片由 script.js 動態產生 -->
+    <div id="testimonial-list" class="testimonial-list"></div>
+  </section>
+
+  <!-- 聯絡方式區塊 -->
+  <section id="contact" class="section">
+    <h2>聯絡方式</h2>
+    <p>想預約課程或有任何問題，歡迎透過下方表單與我聯繫！</p>
+
+    <form id="contact-form" class="contact-form">
+      <label for="name">姓名</label>
+      <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required />
+
+      <label for="phone">聯絡電話</label>
+      <input type="tel" id="phone" name="phone" placeholder="請輸入您的電話" required />
+
+      <label for="message">想說的話</label>
+      <textarea id="message" name="message" rows="4" placeholder="請簡單描述您的需求"></textarea>
+
+      <button type="submit">送出</button>
+    </form>
+
+    <!-- 送出後的提示訊息，預設隱藏 -->
+    <p id="form-result" class="form-result"></p>
+  </section>
+
+  <!-- 頁尾 -->
+  <footer class="footer">
+    <p>&copy; 2026 FitPro 尊爵健身教室. All rights reserved.</p>
+  </footer>
+
+  <!-- 引入外部 JavaScript，所有邏輯都寫在 script.js -->
+  <script src="script.js"></script>
+</body>
+</html>

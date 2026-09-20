@@ -1,0 +1,404 @@
+/* ===== 字型引入（奢華襯線字型用於標題） ===== */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap");
+
+/* ===== 基本設定 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 讓寬高計算包含 padding 和 border，比較好抓版面 */
+}
+
+:root {
+  /* 統一管理顏色，之後要換色只要改這裡 */
+  --gold: #d4af37;
+  --gold-light: #f3d98b;
+  --purple: #9b5de5;
+  --pink: #f15bb5;
+  --teal: #00bbf9;
+  --lime: #00f5d4;
+  --bg-dark: #0e0e14;
+  --bg-card: #1b1b26;
+}
+
+body {
+  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  background-color: var(--bg-dark);
+  color: #f5f5f5;
+  line-height: 1.7;
+}
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", "Noto Sans TC", serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== 導覽列 ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(14, 14, 20, 0.9);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.navbar .logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, var(--gold-light), var(--pink), var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar nav a {
+  margin-left: 28px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar nav a:hover {
+  color: var(--gold-light);
+}
+
+/* ===== 主視覺區塊 ===== */
+.hero {
+  text-align: center;
+  padding: 140px 20px 100px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(155, 93, 229, 0.35), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(241, 91, 181, 0.3), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(0, 187, 249, 0.25), transparent 50%),
+    var(--bg-dark);
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  margin-bottom: 24px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--bg-dark);
+  background: linear-gradient(90deg, var(--gold-light), var(--gold));
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--gold-light), var(--pink), var(--teal), var(--lime));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin: 0 auto 34px;
+  max-width: 600px;
+  color: #ddd;
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 40px;
+  color: #1a1a1a;
+  font-weight: bold;
+  border-radius: 30px;
+  background: linear-gradient(90deg, var(--gold-light), var(--gold));
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
+}
+
+/* ===== 數字統計區塊 ===== */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px 20px;
+  background-color: var(--bg-card);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: bold;
+  font-family: "Cormorant Garamond", serif;
+  background: linear-gradient(90deg, var(--teal), var(--lime));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* ===== 一般區塊 ===== */
+.section {
+  padding: 90px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 50px;
+  background: linear-gradient(90deg, var(--gold-light), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.alt-bg {
+  background-color: var(--bg-card);
+  max-width: 100%;
+}
+
+/* ===== 教練介紹 ===== */
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-photo {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  padding: 6px; /* 製造漸層外框的寬度 */
+  background: linear-gradient(135deg, var(--purple), var(--pink), var(--teal));
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* 讓照片自動裁切填滿圓形，不會變形 */
+  display: block;
+}
+
+.about-text {
+  max-width: 520px;
+  font-size: 1.05rem;
+}
+
+.about-text p {
+  margin-bottom: 16px;
+}
+
+/* ===== 特色 / 課程 / 好評 卡片共用格線 ===== */
+.feature-list,
+.course-list,
+.testimonial-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 28px;
+}
+
+/* ===== 特色卡片 ===== */
+.feature-card {
+  background: linear-gradient(160deg, rgba(155, 93, 229, 0.15), rgba(0, 187, 249, 0.1));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 16px;
+  padding: 30px 24px;
+  text-align: center;
+  transition: transform 0.25s, border-color 0.25s;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-light);
+}
+
+.feature-card .icon {
+  font-size: 2.2rem;
+  margin-bottom: 14px;
+}
+
+.feature-card h3 {
+  color: var(--gold-light);
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+/* ===== 課程卡片 ===== */
+.course-card {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 30px 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s;
+}
+
+.course-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--gold), var(--pink), var(--teal));
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+}
+
+.course-card h3 {
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.course-card .price {
+  margin-top: 18px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, var(--teal), var(--lime));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== 學員好評卡片 ===== */
+.testimonial-card {
+  background: linear-gradient(160deg, rgba(241, 91, 181, 0.12), rgba(155, 93, 229, 0.12));
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.testimonial-card .stars {
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.testimonial-card .quote {
+  font-style: italic;
+  margin-bottom: 16px;
+  color: #eee;
+}
+
+.testimonial-card .author {
+  font-weight: bold;
+  color: var(--gold-light);
+}
+
+/* ===== 聯絡表單 ===== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+  margin: 30px auto 0;
+  gap: 6px;
+  background-color: var(--bg-card);
+  padding: 36px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.contact-form label {
+  font-weight: bold;
+  margin-top: 14px;
+  color: var(--gold-light);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #14141c;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--gold-light);
+}
+
+.contact-form button {
+  margin-top: 22px;
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
+  color: #1a1a1a;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--gold-light), var(--pink));
+  transition: transform 0.2s;
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+}
+
+.form-result {
+  text-align: center;
+  margin-top: 16px;
+  font-weight: bold;
+  color: var(--lime); /* 成功訊息用亮綠色，呼應繽紛色調 */
+}
+
+/* ===== 頁尾 ===== */
+.footer {
+  text-align: center;
+  padding: 28px;
+  background-color: #08080c;
+  color: #888;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* ===== 手機版排版調整 ===== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navbar nav a {
+    margin: 0 10px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .stats {
+    gap: 24px;
+  }
+}
